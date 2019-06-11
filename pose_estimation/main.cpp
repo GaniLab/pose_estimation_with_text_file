@@ -80,6 +80,7 @@ int main(int argc, char **argv)
 
 	cout << endl;
 
+
 	// distortion coefficient input
 	ifstream csvDist_coeffs("../input_data/dist_coeffs.txt");
 
@@ -103,6 +104,7 @@ int main(int argc, char **argv)
 
 	cout << endl;
 
+
 	// 2D image points input in pixel
 	ifstream im1;
 
@@ -115,8 +117,6 @@ int main(int argc, char **argv)
 	cout << " image points : " << endl << image1 << endl;
 
 	cout << endl;
-
-
 
 
 	// 3D model points input in mm
@@ -156,6 +156,7 @@ int main(int argc, char **argv)
 
 	cout << endl;
 
+
 	//initial translation input in mm
 	ifstream csvInitialtranslation("../input_data/initial_translation.txt");
 
@@ -178,6 +179,7 @@ int main(int argc, char **argv)
 	csvInitialtranslation.close();
 
 	cout << endl;
+
 
 	// function to estimate the pose
 	// solvePnP iterative with Levenberg-Marquardt optimization is choosen as method to estimate the pose
@@ -237,6 +239,7 @@ int main(int argc, char **argv)
 
 }
 
+
 //2D image points extractor from text file data.
 vector<Point2d> imagePoints(ifstream& csvImage)
 {
@@ -253,6 +256,7 @@ vector<Point2d> imagePoints(ifstream& csvImage)
 
 	return imagePoints;
 }
+
 
 //3D model object points extractor from text file data.
 vector<Point3d> modelPoints(ifstream& csvModel)
@@ -271,6 +275,7 @@ vector<Point3d> modelPoints(ifstream& csvModel)
 	return modelPoints;
 }
 
+
 // printing rotation vectors into text file
 void printRvecs(ofstream& csvRvecs, Mat& rvecs)
 {
@@ -281,6 +286,7 @@ void printRvecs(ofstream& csvRvecs, Mat& rvecs)
 	csvRvecs << setprecision(17) << rvecs.at<double>(0) * 180 / phi << " " << rvecs.at<double>(1) * 180 / phi << " " << rvecs.at<double>(2) * 180 / phi << endl;
 }
 
+
 // printing translation vectors into text file
 void printTvecs(ofstream& csvTvecs, Mat& tvecs)
 {
@@ -288,6 +294,7 @@ void printTvecs(ofstream& csvTvecs, Mat& tvecs)
 
 	csvTvecs << setprecision(17) << tvecs.at<double>(0) << " " << tvecs.at<double>(1) << " " << tvecs.at<double>(2) << endl;
 }
+
 
 // printing 3x3 rotation matrix in rodrigues form into text file
 void printRodriguesRotation(ofstream& csvR, Mat& rvec, Mat& R)
@@ -303,6 +310,7 @@ void printRodriguesRotation(ofstream& csvR, Mat& rvec, Mat& R)
 
 }
 
+
 // create mat object for extrinsic matrix
 Mat extrinsic_matrix(Mat& R, Mat& tvec)
 {
@@ -313,6 +321,7 @@ Mat extrinsic_matrix(Mat& R, Mat& tvec)
 
 	return E;
 }
+
 
 // printing extrinsic matrix into text file
 void print_extrinsic(ofstream& csvExtrinsicMatrix, Mat& E)
@@ -325,6 +334,7 @@ void print_extrinsic(ofstream& csvExtrinsicMatrix, Mat& E)
 	csvExtrinsicMatrix << setprecision(17) << E.at<double>(3, 0) << " " << E.at<double>(3, 1) << " " << E.at<double>(3, 2) << " " << E.at<double>(3, 3) << endl;
 }
 
+
 // create mat object for projection matrix
 Mat projection_matrix(Mat& camera_matrix, Mat& extrinstic_matrix)
 {
@@ -336,6 +346,7 @@ Mat projection_matrix(Mat& camera_matrix, Mat& extrinstic_matrix)
 
 	return P;
 }
+
 
 // printing projection matrix into text file
 void print_projection_matrix(ofstream& csvProj, Mat& P)
