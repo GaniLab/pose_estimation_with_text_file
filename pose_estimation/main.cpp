@@ -179,28 +179,26 @@ int main(int argc, char **argv)
 
 	cout << endl;
 
-	// initialize output file stream for pose estimation result
-
-
-
-	// Function to solve the pose
+	// function to estimate the pose
+	// solvePnP iterative with Levenberg-Marquardt optimization is choosen as method to estimate the pose
+	// initial rotation and translation is not used in this function
 	bool pose_image_1 = solvePnP(model_points, image1, camera_matrix, dist_coeffs, rvec, tvec, 0, SOLVEPNP_ITERATIVE);
 
-	// formating output rotation vector from radian to degree
+	// printing rotation vector in degree
 	ofstream csvRvecs("../output_data/rvecs/Rotation_Vectors.txt");
 
 	printRvecs(csvRvecs, rvec);
 
 	csvRvecs.close();
 
-	// formating output translation into high precision decimal points
+	// printing translation in mm  with high precision decimal points
 	ofstream csvTvecs("../output_data/tvecs/Translation_Vectors.txt");
 
 	printTvecs(csvTvecs, tvec);
 
 	csvTvecs.close();
 
-	// finding 3x3 rotations in rodrigues form and outputing the result into .txt file format
+	// printing 3x3 rotations in rodrigues form 
 	Mat R(3, 3, CV_64F);
 
 	ofstream csvR("../output_data/rot3x3_rodrigues/Rotation3x3.txt");
@@ -211,7 +209,7 @@ int main(int argc, char **argv)
 
 	cout << endl;
 
-	// combining 3x3 rotations and translations to make extrinsic matrix output in .txt file format
+	// create Mat object for extrinsic matrix and print it into .txt file format
 	ofstream csvExtrinsicMatrix("../output_data/extrinsic_matrix/Extrinsic_Matrix.txt");
 
 	Mat E = extrinsic_matrix(R, tvec);
@@ -222,10 +220,10 @@ int main(int argc, char **argv)
 
 	cout << endl;
 
-	// initialize projection identity matrix
+	// create Mat object for projection identity matrix
 	Mat P = projection_matrix(camera_matrix, E);
 
-	// finding projection matrix and outputting the result in .txt file format
+	// printing projection matrix in .txt file format
 	ofstream csvProj("../output_data/projection_matrix/Projection_Matrix.txt");
 
 	print_projection_matrix(csvProj, P);
