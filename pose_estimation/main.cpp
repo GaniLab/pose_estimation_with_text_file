@@ -1,7 +1,8 @@
-// This program is intended to estimate the pose of camera relative to the 3D object points in the screen coordinate
-// Estimated pose is from single view intake
-// Initial translation and rotation can be added
-// All input data is in .txt file format
+/* This program is intended to estimate the pose of camera relative to the 3D object points in the screen coordinate
+ * Estimated pose is from single view intake
+ * Initial translation and rotation can be added
+ * All input data is in .txt file format
+*/
 
 #include <iostream>
 #include <fstream>
